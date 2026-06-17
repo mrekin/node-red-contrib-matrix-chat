@@ -540,7 +540,8 @@ module.exports = function(RED) {
 
                 // handle auto-joining rooms
                 node.matrixClient.on(RoomMemberEvent.Membership, async function(event, member) {
-                    if(node.initializedAt > event.getDate()) {
+                    let eventDate = event.getDate();
+                    if(eventDate && node.initializedAt > event.getDate()) {
                         return; // skip events that occurred before our client initialized
                     }
 
